@@ -1,6 +1,18 @@
 import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 class TodoItem extends Component{
+    // componentWillReceiveProps(){
+    //     console.log("Todoitem receive props");
+    // }
+    // componentWillUnmount(){
+    //     console.log(this.props.item+"我被卸载啦");
+    // }
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextProps.item!==this.props.item){
+            return true;
+        }
+
+    }
     render(){
         const {item,onHandlerDeleteItem,title}=this.props;
         return (
@@ -10,9 +22,8 @@ class TodoItem extends Component{
         )
     }
 }
-
 TodoItem.propTypes={
-    item:PropTypes.string,
+    item:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
     onHandlerDeleteItem:PropTypes.func
 }
 
