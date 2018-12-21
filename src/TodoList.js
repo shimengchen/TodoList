@@ -1,6 +1,7 @@
 import React,{Component,Fragment} from 'react';
 import TodoItem from './component/TodoItem';
 //import axios from 'axios';
+import {CSSTransition} from 'react-transition-group';
 import './style.css';
 
 class TodoList extends Component{
@@ -75,10 +76,24 @@ class TodoList extends Component{
                 />
                 {/*htmlFor 替代html里的for 点击label insertArea获取光标 */}
                 <button onClick={this.handleBtnClick}>提交</button></div>
-                <ul className={this.state.showList?'show':'hidden'}>
+                {/*添加csstransition动画 
+                 in感应状态变化触发动画
+                 timeout表示动画时间
+                 unmountOnExit表示隐藏动画时DOM也在文档流中被移除
+                 */}
+                <CSSTransition
+                in={this.state.showList}
+                timeout={1000}
+                classNames='fade'
+                unmountOnExit
+                onEntered={(el)=>{el.style.color='blue'}}
+                appear='true'
+                >
+                <ul >
                     {this.getTodoList()}
                 </ul>
-                <button onClick={this.handleHiddenList}>隐藏任务</button>
+                </CSSTransition>
+                <button onClick={this.handleHiddenList}>{this.state.showList?'隐藏任务':'显示任务'}</button>
             </Fragment>
         )
     }
