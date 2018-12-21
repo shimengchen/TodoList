@@ -1,6 +1,6 @@
 import React,{Component,Fragment} from 'react';
 import TodoItem from './component/TodoItem';
-import axios from 'axios';
+//import axios from 'axios';
 import './style.css';
 
 class TodoList extends Component{
@@ -8,15 +8,17 @@ class TodoList extends Component{
         super(props);
         this.state={
             inputValue:'',
-            list:['学习React','运动','收拾房间']
+            list:['学习React','运动','收拾房间'],
+            showList:true
         }
         //绑定this值，指向TodoList
         this.handleInputChange=this.handleInputChange.bind(this);
         this.handleBtnClick=this.handleBtnClick.bind(this);
+        this.handleHiddenList=this.handleHiddenList.bind(this);
     }
     componentDidMount(){
         //适合发送异步请求
-        // axios.get('./todo')
+        // axios.get('/data/todoList')
         // .then(()=>{console.log('success')})
         // .catch(()=>{console.log('error')});
     }
@@ -44,7 +46,11 @@ class TodoList extends Component{
             return {list:arr}
         });
     }
-
+    handleHiddenList(){
+        this.setState((prevState)=>({
+            showList:!prevState.showList
+        }));
+    }
     getTodoList(){
         return this.state.list.map((value,index)=>{
             return (
@@ -69,9 +75,10 @@ class TodoList extends Component{
                 />
                 {/*htmlFor 替代html里的for 点击label insertArea获取光标 */}
                 <button onClick={this.handleBtnClick}>提交</button></div>
-                <ul>
+                <ul className={this.state.showList?'show':'hidden'}>
                     {this.getTodoList()}
                 </ul>
+                <button onClick={this.handleHiddenList}>隐藏任务</button>
             </Fragment>
         )
     }

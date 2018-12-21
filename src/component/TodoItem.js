@@ -9,7 +9,11 @@ class TodoItem extends Component{
     // }
     shouldComponentUpdate(nextProps,nextState){
         if(nextProps.item!==this.props.item){
+            //当组件的item值更新时重新渲染
             return true;
+        }else{
+            //当父组件重新渲染但子组件没有更新时，禁止渲染
+            return false;
         }
 
     }
