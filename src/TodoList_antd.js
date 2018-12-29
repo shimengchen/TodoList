@@ -4,6 +4,7 @@ import { Input } from 'antd';
 import { Button } from 'antd';
 import { List } from 'antd';
 import store from './store/index.js'
+import {CHANGE_INPUT_VALUE,ADD_TODO_ITEM,DELETE_TODO_ITEM} from './store/actionTypes'
 
 class TodoList_antd extends Component{
     constructor(props){
@@ -17,14 +18,21 @@ class TodoList_antd extends Component{
     }
     handleInputChange(e){
         const action={
-            type:'change_input_value',
+            type:CHANGE_INPUT_VALUE,
             value:e.target.value
         }
         store.dispatch(action);
     }
     handleBtnClick(e){
         const action={
-            type:'add_todo_item'
+            type:ADD_TODO_ITEM
+        }
+        store.dispatch(action);
+    }
+    handleItemDelete(index){
+        const action={
+            type:DELETE_TODO_ITEM,
+            index:index
         }
         store.dispatch(action);
     }
@@ -47,7 +55,7 @@ class TodoList_antd extends Component{
             <List
              bordered
              dataSource={this.state.list}
-             renderItem={item => (<List.Item>{item}</List.Item>)}
+             renderItem={(item,index) => (<List.Item onClick={this.handleItemDelete.bind(this,index)}>{item}</List.Item>)}
              style={{width:'400px'}}
             />
             </div>
