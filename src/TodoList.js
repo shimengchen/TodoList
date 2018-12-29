@@ -80,19 +80,22 @@ class TodoList extends Component{
                  in感应状态变化触发动画
                  timeout表示动画时间
                  unmountOnExit表示隐藏动画时DOM也在文档流中被移除
+                 onEntered表示入场后的事件处理程序
+                 el指向动画作用的DOM元素，也就是ul
+                 appear表示元素第一次渲染是时是否作用动画
                  */}
-                <CSSTransition
+                  <CSSTransition
                 in={this.state.showList}
                 timeout={1000}
                 classNames='fade'
                 unmountOnExit
                 onEntered={(el)=>{el.style.color='blue'}}
-                appear='true'
+                appear={true}
                 >
                 <ul >
                     {this.getTodoList()}
                 </ul>
-                </CSSTransition>
+               </CSSTransition>
                 <button onClick={this.handleHiddenList}>{this.state.showList?'隐藏任务':'显示任务'}</button>
             </Fragment>
         )

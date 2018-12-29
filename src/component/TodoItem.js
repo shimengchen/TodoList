@@ -8,7 +8,9 @@ class TodoItem extends Component{
     //     console.log(this.props.item+"我被卸载啦");
     // }
     shouldComponentUpdate(nextProps,nextState){
+        
         if(nextProps.item!==this.props.item){
+            console.log(nextProps.item+"---"+this.props.item);
             //当组件的item值更新时重新渲染
             return true;
         }else{
