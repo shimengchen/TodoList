@@ -2,9 +2,8 @@
 import React,{Component} from 'react'
 import 'antd/dist/antd.css';
 import store from './store/index.js';
-import {getInputChangeAction,getAddTodoItemAction,getDeleteTodoItemAction, initListAction} from './store/actionCreators'
+import {getInitList,getInputChangeAction,getAddTodoItemAction,getDeleteTodoItemAction} from './store/actionCreators'
 import TodoListUI from './TodoListUI.js';
-import axios from 'axios';
 
 class TodoList_antd extends Component{
     constructor(props){
@@ -48,11 +47,13 @@ class TodoList_antd extends Component{
     componentDidMount(){
         // const action=getTodoList();
         // store.dispatch(action);
-        axios.get('/mofang').then((res)=>{
-            const data=res.data;
-            const action=initListAction(data);
-            store.dispatch(action);
-        });
+        // axios.get('/mofang').then((res)=>{
+        //     const data=res.data;
+        //     const action=initListAction(data);
+        //     store.dispatch(action);
+        // });
+        const action =getInitList();
+        store.dispatch(action);
     }
 }
 export default TodoList_antd;
